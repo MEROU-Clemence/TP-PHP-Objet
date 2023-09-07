@@ -14,3 +14,45 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+
+
+/* PAGE CONNEXION */
+.general-connexion {
+    background-image: url('img/fond-airbnb.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 150px;
+}
+
+.titre-connexion {
+    margin: 50px;
+    padding-top: 50px;
+    color: beige;
+}
+
+.connexion {
+    display: flex;
+    flex-direction: column;
+    margin: 300px 50px 150px 50px;
+}
+
+.go {
+    display: inline-block;
+}
+
+.go input {
+    background-color: #583c41;
+    border: 2px solid beige;
+    border-radius: 25px;
+    color: beige;
+    margin-bottom: 50px;
+    padding: 5px;
+}
+
+.go input:hover {
+    background-color: beige;
+    border: 2px solid #583c41;
+    color: #583c41;
+}

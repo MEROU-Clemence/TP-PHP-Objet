@@ -3,6 +3,8 @@
 namespace Core;
 
 use MiladRahimi\PhpRouter\Router;
+use App\Controller\AuthController;
+use App\Controller\AdminController;
 use Core\Database\DatabaseConfigInterface;
 use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
 use MiladRahimi\PhpRouter\Exceptions\InvalidCallableException;

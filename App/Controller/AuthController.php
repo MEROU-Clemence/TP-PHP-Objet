@@ -19,6 +19,7 @@ class AuthController extends Controller
     public const AUTH_SALT = 'c56a7523d96942a834b9cdc249bd4e8c7aa9';
     public const AUTH_PEPPER = '8d746680fd4d7cbac57fa9f033115fc52196';
 
+
     public function login()
     {
         // on va créer une instance de View pour afficher la vue de la connexion
@@ -32,6 +33,7 @@ class AuthController extends Controller
         // render = méthode de la classe View qui permet d'afficher la vue
         $view->render($view_data);
     }
+
 
     // méthode qui réceptionne les données du formulaire de connexion
     public function loginPost(ServerRequest $request)
@@ -54,7 +56,7 @@ class AuthController extends Controller
 
             // appel du repository pour vérifier que l'utilisateur existe
             // NB: on a crée méthode checkAuth dans le repository ainsi que le RepoManager
-            $user = AppRepoManager::getRm()->getUserRepo()->checkAuth($email, $password);
+            $user = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuth($email, $password);
 
             // si le retour est négatif, on affiche le message d'erreur
             if (is_null($user)) {
