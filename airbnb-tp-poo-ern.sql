@@ -97,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `adresse_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `adresse_id` (`adresse_id`),
-  CONSTRAINT `FK1_adresse` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`)
+);
 
 -- Listage des données de la table airbnb-tp.utilisateur : ~0 rows (environ)
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
@@ -126,10 +126,10 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `adresse_id` (`adresse_id`),
   KEY `utilisateur_id` (`utilisateur_id`),
   KEY `type_logement_id` (`type_logement_id`),
-  CONSTRAINT `FK1_adresse` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`),
-  CONSTRAINT `FK2_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`),
-  CONSTRAINT `FK3_type_logement` FOREIGN KEY (`type_logement`) REFERENCES `type_logement` (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`),
+  FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`),
+  FOREIGN KEY (`type_logement_id`) REFERENCES `type_logement` (`id`)
+);
 
 -- Listage des données de la table airbnb-tp.annonce : ~0 rows (environ)
 /*!40000 ALTER TABLE `annonce` DISABLE KEYS */;
@@ -151,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `annonce_id` (`annonce_id`),
   KEY `utilisateur_id` (`utilisateur_id`),
   CONSTRAINT `FK1_annonce` FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`),
-  CONSTRAINT `FK2_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK2_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`)
+);
 
 -- Listage des données de la table airbnb-tp.reservation : ~0 rows (environ)
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
@@ -166,12 +166,12 @@ INSERT INTO `reservation` (`id`, `annonce_id`, `utilisateur_id`, `date_debut`, `
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE IF NOT EXISTS `photo` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `image_path` varchar(150) DEFAULT 'default.png',
+  `image_path` varchar(150) NOT NULL,
   `annonce_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `annonce_id` (`annonce_id`),
-  CONSTRAINT `FK1_annonce` FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`)
+);
 
 -- Listage des données de la table airbnb-tp.photo
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
@@ -190,9 +190,9 @@ CREATE TABLE IF NOT EXISTS `annonce_equipement` (
   PRIMARY KEY (`id`),
   KEY `annonce_id` (`annonce_id`),
   KEY `equipement_id` (`equipement_id`),
-  CONSTRAINT `FK1_annonce` FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`),
-  CONSTRAINT `FK2_equipement` FOREIGN KEY (`equipement_id`) REFERENCES `equipement` (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`),
+  FOREIGN KEY (`equipement_id`) REFERENCES `equipement` (`id`)
+);
 
 -- Listage des données de la table airbnb-tp.annonce_equipement
 /*!40000 ALTER TABLE `annonce_equipement` DISABLE KEYS */;

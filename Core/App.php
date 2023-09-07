@@ -66,6 +66,18 @@ class App implements DatabaseConfigInterface
         $this->router->pattern('slug', '(\d*-)?[a-z]+(-[a-z-\d]+)*');
 
         // on crée la route pour la page d'accueil avec le controlleur
+        // route pour la vue connexion
+        $this->router->get('/connexion', [AuthController::class, 'login']);
+        // route pour envoyer le formulaire de connexion
+        $this->router->post('/login', [AuthController::class, 'loginPost']);
+        // route pour la déconnexion
+        $this->router->get('/logout', [AuthController::class, 'logout']);
+        // route pour la page admin
+        $this->router->get('/admin/utilisateur', [AdminController::class, 'index']);
+        $this->router->get('/admin/update/{id}', [AdminController::class, 'update']);
+        $this->router->get('/admin/delete/{id}', [AdminController::class, 'deleteUtilisateur']);
+        $this->router->get('/admin/addUtilisateur', [AdminController::class, 'addUtilisateur']);
+        $this->router->post('/update', [AdminController::class, 'updateUtilisateur']);
     }
 
     // *** 3) méthode startRouter (démarrage du Router)

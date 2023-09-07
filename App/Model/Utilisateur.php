@@ -11,5 +11,5 @@ class Utilisateur extends Model
 
     public string $email;
     public string $password;
-    public int $role;
+    public bool $role;
 }
