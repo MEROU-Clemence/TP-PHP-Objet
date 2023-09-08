@@ -4,7 +4,8 @@ namespace Core;
 
 use MiladRahimi\PhpRouter\Router;
 use App\Controller\AuthController;
-use App\Controller\AdminController;
+use App\Controller\AnnonceController;
+use App\Controller\InscriptionController;
 use Core\Database\DatabaseConfigInterface;
 use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
 use MiladRahimi\PhpRouter\Exceptions\InvalidCallableException;
@@ -59,27 +60,25 @@ class App implements DatabaseConfigInterface
     private function registerRoutes(): void
     {
         // on crée la route pour la page d'accueil
-        // $this->router->get('/', function () {
-        //     echo 'Utiliser le controller pour envoyer la vue';
-        // });
+        $this->router->get('/', [AnnonceController::class, 'index']);
 
         // Déclaration des patterns pour tester les valeurs des arguments
         $this->router->pattern('id', '[0-9]\d*');
         $this->router->pattern('slug', '(\d*-)?[a-z]+(-[a-z-\d]+)*');
 
-        // on crée la route pour la page d'accueil avec le controlleur
+        // on crée les routes avec le controlleur
         // route pour la vue connexion
         $this->router->get('/connexion', [AuthController::class, 'login']);
+
         // route pour envoyer le formulaire de connexion
         $this->router->post('/login', [AuthController::class, 'loginPost']);
         // route pour la déconnexion
         $this->router->get('/logout', [AuthController::class, 'logout']);
-        // route pour la page admin
-        $this->router->get('/admin/utilisateur', [AdminController::class, 'index']);
-        $this->router->get('/admin/update/{id}', [AdminController::class, 'update']);
-        $this->router->get('/admin/delete/{id}', [AdminController::class, 'deleteUtilisateur']);
-        $this->router->get('/admin/addUtilisateur', [AdminController::class, 'addUtilisateur']);
-        $this->router->post('/update', [AdminController::class, 'updateUtilisateur']);
+
+        // route pour aller vers l'inscription
+        $this->router->get('/inscription', [InscriptionController::class, 'createInscription']);
+        // route pour envoyer le formulaire d'inscription
+        $this->router->post('/inscriptionPost', [InscriptionController::class, 'inscriptionPost']);
     }
 
     // *** 3) méthode startRouter (démarrage du Router)

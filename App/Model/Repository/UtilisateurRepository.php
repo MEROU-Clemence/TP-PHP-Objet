@@ -4,7 +4,6 @@ namespace App\Model\Repository;
 
 use App\Model\Utilisateur;
 use Core\Repository\Repository;
-use App\Model\Repository\UtilisateurRepository;
 
 class UtilisateurRepository extends Repository
 {
@@ -13,11 +12,11 @@ class UtilisateurRepository extends Repository
         return 'utilisateur';
     }
 
-    public function checkAuth(string $email, string $password): ?Utilisateur
+    public function checkAuth(string $email, string $motdepasse): ?Utilisateur
     {
         // on crée la requête
         $query = sprintf(
-            'SELECT * FROM %s WHERE email = :email AND password = :password',
+            'SELECT * FROM %s WHERE email = :email AND mot_de_passe = :motdepasse',
             $this->getTableName()
         );
 
@@ -28,7 +27,7 @@ class UtilisateurRepository extends Repository
         // on exécute la requête
         $stmt->execute([
             'email' => $email,
-            'password' => $password
+            'motdepasse' => $motdepasse
         ]);
         // on récupère les données
         $user_data = $stmt->fetch();
@@ -36,97 +35,30 @@ class UtilisateurRepository extends Repository
         return empty($user_data) ? null : new Utilisateur($user_data);
     }
 
-    // créer une méthode qui récupère la liste des utilisateurs
-    public function findAll(): array
-    {
-        return $this->readAll(Utilisateur::class);
-    }
 
-    // méthode qui récupère un utilisateur par son id
-    public function findById(int $id): ?Utilisateur
-    {
-        return $this->readById(Utilisateur::class, $id);
-    }
 
-    // méthode qui update l'utilisateur
-    public function updateUserById(string $email, int $role, int $id): ?Utilisateur
+    public function checkAuthInscription(string $email, string $motdepasse, bool $isannonceur, int $adresse): ?Utilisateur
     {
         // on crée la requête
-        $q = sprintf(
-            'UPDATE `%s` SET `email` = :email, `role` = :role WHERE `id` = :id',
+        $query = sprintf(
+            'SELECT * FROM %s WHERE email = :email AND mot_de_passe = :motdepasse AND is_annonceur = :isannonceur AND adresse_id =: adresse',
             $this->getTableName()
         );
 
         // on prépare la requête
-        $stmt = $this->pdo->prepare($q);
+        $stmt = $this->pdo->prepare($query);
         // on vérifie que la requête est bien préparée
         if (!$stmt) return null;
         // on exécute la requête
         $stmt->execute([
             'email' => $email,
-            'role' => $role,
-            'id' => $id
+            'motdepasse' => $motdepasse,
+            'isannonceur' => $isannonceur,
+            'adresse' => $adresse
         ]);
         // on récupère les données
         $user_data = $stmt->fetch();
-
-        // on instancie un objet User
+        // on instancie un objet Users
         return empty($user_data) ? null : new Utilisateur($user_data);
-    }
-
-    // méthode pour supprimer un utilisateur
-    public function deleteUser(int $id): bool
-    {
-        return $this->delete($id);
-    }
-
-    // méthode pour créer un nouvel utilisateur
-    public function createUtilisateur(string $email, string $password, int $role)
-    {
-        // on créer la requête d'insertion
-        $q_insert = sprintf(
-            'INSERT INTO `%s` (`email`, `password`, `role`)
-            VALUES (:email, :password, :role)',
-            $this->getTableName()
-        );
-
-        // on crée une requête pour savoir si un utilisateur existe déjà
-        $q_select = sprintf(
-            'SELECT * FROM `%s` WHERE `email` = :email',
-            $this->getTableName()
-        );
-
-        // on prépare la requête select
-        $stmt_select = $this->pdo->prepare($q_select);
-
-        // on vérifie que la requête est bien préparée
-        if (!$stmt_select) return null;
-
-        // on exécute la requête select
-        $stmt_select->execute([
-            'email' => $email
-        ]);
-
-        // on récupère les données
-        $user_data = $stmt_select->fetch();
-
-        // si j'ai un résultat, je retourne false
-        if (!empty($user_data)) return false;
-
-        // sinon on prépare la requête d'insertion
-        $stmt_insert = $this->pdo->prepare($q_insert);
-
-        // on vérifie que la requête est bien préparée
-        if (!$stmt_insert) return false;
-
-        // on exécute la requête d'insertion
-        $stmt_insert->execute([
-            'email' => $email,
-            'password' => $password,
-            'role' => $role
-        ]);
-
-        // on retourne true
-        return true;
     }
 }

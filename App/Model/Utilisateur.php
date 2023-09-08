@@ -10,6 +10,7 @@ class Utilisateur extends Model
     public const ROLE_ADMINISTRATOR = 2;
 
     public string $email;
-    public string $password;
-    public bool $role;
+    public string $motdepasse;
+    public bool $isannonceur;
+    public int $adresse;
 }

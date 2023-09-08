@@ -14,3 +14,7 @@
 </head>
 
 <body>
+    <div class="presentation">
+        <h1>Bienvenue sur Airbnb</h1>
+        <img src="/img/logo-airbnb-rond.jpg" alt="logo" height="100px">
+    </div>

@@ -5,6 +5,7 @@ namespace Core\Repository;
 use Core\App;
 use App\Model\Repository\UtilisateurRepository;
 
+
 class AppRepoManager
 {
     // on importe le trait.

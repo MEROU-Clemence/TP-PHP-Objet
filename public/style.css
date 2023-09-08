@@ -16,26 +16,44 @@ a {
 }
 
 
+/* TOUT */
+body {
+    background-color: beige;
+}
 
-/* PAGE CONNEXION */
+
+
+/* PRESENTATION */
+.presentation {
+    background-color: beige;
+    display: flex;
+    justify-content: space-between;
+}
+
+.presentation h1 {
+    color: #FF5A5F;
+    margin: 30px;
+}
+
+
+
+
+/* CONNEXION */
+/* pas encore connecté */
 .general-connexion {
-    background-image: url('img/fond-airbnb.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    margin: 150px;
+    background-color: #FF5A5F;
 }
 
 .titre-connexion {
-    margin: 50px;
-    padding-top: 50px;
     color: beige;
+    margin: 0 0 20px 30px;
+    padding-top: 50px;
 }
 
 .connexion {
     display: flex;
     flex-direction: column;
-    margin: 300px 50px 150px 50px;
+    margin: 0 0 0 30px;
 }
 
 .go {
@@ -48,11 +66,48 @@ a {
     border-radius: 25px;
     color: beige;
     margin-bottom: 50px;
-    padding: 5px;
+    padding: 7px;
 }
 
 .go input:hover {
     background-color: beige;
     border: 2px solid #583c41;
     color: #583c41;
+}
+
+
+/* une fois sur la page principale */
+.profil-utilisateur {
+    color: #583c41;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+    justify-content: end;
+    margin: 5px;
+}
+
+.deconnect {
+    display: flex;
+    justify-content: end;
+}
+
+.deconnect a {
+    background-color: #583c41;
+    border: 2px solid beige;
+    border-radius: 25px;
+    color: beige;
+    margin: 0 5px 5px 5px;
+    padding: 7px;
+}
+
+.deconnect a:hover {
+    background-color: #FF5A5F;
+    border: 2px solid #583c41;
+    color: beige;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 }
