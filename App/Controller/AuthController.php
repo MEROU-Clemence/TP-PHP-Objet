@@ -84,7 +84,7 @@ class AuthController extends Controller
     {
         // on détruit la session
         Session::remove(Session::USER);
-        self::redirect('/connexion');
+        self::redirect('/');
     }
 
 

@@ -69,7 +69,6 @@ class App implements DatabaseConfigInterface
         // on crée les routes avec le controlleur
         // route pour la vue connexion
         $this->router->get('/connexion', [AuthController::class, 'login']);
-
         // route pour envoyer le formulaire de connexion
         $this->router->post('/login', [AuthController::class, 'loginPost']);
         // route pour la déconnexion

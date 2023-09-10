@@ -13,4 +13,7 @@ class Utilisateur extends Model
     public string $motdepasse;
     public bool $isannonceur;
     public int $adresse;
+
+    public ?Adresse $adresse = null;
 }
+

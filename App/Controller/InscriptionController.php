@@ -45,24 +45,27 @@ class InscriptionController extends Controller
         $utilisateur = new Utilisateur();
 
         // on vérifie que les champs sont remplis
-        if (empty($post_data['email']) || empty($post_data['motdepasse']) || empty($post_data['isannonceur']) || empty($post_data['adresse'])) {
+        if (empty($post_data['email']) || empty($post_data['motdepasse']) || empty($post_data['isannonceur']) || empty($post_data['rue']) || empty($post_data['codepostal']) || empty($post_data['ville']) || empty($post_data['pays'])) {
             $form_result->addError(new FormError('Tous les champs sont obligatoires'));
         } else {
             // sinon on confronte les valeurs saisies avec les données en BDD
             // on va redéfinir des variables 
             $email = $post_data['email'];
             $motdepasse = self::hash($post_data['motdepasse']);
-            $isannonceur = $post_data['isannonceur'];
-            $adresse = $post_data['adresse'];
+            $isannonceur = ($post_data['isannonceur'] == 'oui');
+            $rue = $post_data['rue'];
+            $codepostal = $post_data['codepostal'];
+            $ville = $post_data['ville'];
+            $pays = $post_data['pays'];
 
 
             // appel du repository pour vérifier que l'utilisateur existe
             // NB: on a crée méthode checkAuth dans le repository ainsi que le RepoManager
-            $utilisateur = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($email, $motdepasse, $isannonceur, $adresse);
+            $utilisateur = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($email, $motdepasse, $isannonceur, $rue, $codepostal, $ville, $pays);
 
             // si le retour est négatif, on affiche le message d'erreur
             if (is_null($utilisateur)) {
-                $form_result->addError(new FormError('Un champ est incorrect'));
+                $form_result->addError(new FormError('Un ou plusieurs champs sont incorrects'));
             }
         }
 
@@ -72,13 +75,16 @@ class InscriptionController extends Controller
             self::redirect('/inscription');
         }
 
-        // si tout s'est bien passé, on enregistre l'utilisateur en session et on redirige vers la page d'accueil.
+        // si tout s'est bien passé, on enregistre l'utilisateur en session et on redirige vers la page de connexion.
         // on efface le mot de passe
         $utilisateur->motdepasse = '';
         Session::set(Session::USER, $utilisateur);
+
         // puis on redirige
-        self::redirect('/');
+        self::redirect('/connexion');
     }
+
+
 
     // méthode de hashage du mot de passe
     public static function hash(string $motdepasse): string

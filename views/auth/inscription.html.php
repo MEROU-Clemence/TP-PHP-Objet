@@ -11,21 +11,43 @@
     }
     ?>
 
-    <form class="connexion" action="/connexion" method="post">
+    <form class="connexion" action="/inscriptionPost" method="post">
         <label for="email">
-            Email: <input type="email" name="email" id="email">
+            <strong>Email:</strong> <input type="email" name="email" id="email">
         </label><br>
         <label for="motdepasse">
-            Mot de passe: <input type="password" name="motdepasse" id="motdepasse">
+            <strong>Mot de passe:</strong> <input type="password" name="motdepasse" id="motdepasse">
         </label><br>
         <label for="isannonceur">
-            Poster également des annonces: <input type="checkbox" name="isannonceur" id="isannonceur">
-        </label><br>
-        <label for="adresse">
-            Adresse: <input type="adresse" name="adresse" id="adresse">
-        </label><br>
+            <strong>Voulez-vous également poster des annonces?</strong>
+        </label>
+        <div class="d-flex flex-row">
+            <label for="oui">Oui
+                <input type="radio" name="isannonceur" id="oui" value="oui">
+            </label> &nbsp;
+            <label for="non">Non
+                <input type="radio" name="isannonceur" id="non" value="non">
+            </label>
+        </div><br>
+        <label>
+            <strong>Votre adresse:</strong>
+        </label>
+        <div>     
+            <label for="rue">Numéro et nom de rue:
+                <input type="text" name="rue" id="rue">
+            </label><br>
+            <label for="codepostal">Code postal:
+                <input type="text" name="codepostal" id="codepostal">
+            </label><br>
+            <label for="ville">Ville:
+                <input type="text" name="ville" id="ville">
+            </label><br>
+            <label for="pays">Pays:
+                <input type="text" name="pays" id="pays">
+            </label><br>
+        </div><br>
         <div class="go">
-            <input type="submit" value="GO!">
+            <input type="submit" value="S'inscrire">
         </div>
     </form>
 </div>
