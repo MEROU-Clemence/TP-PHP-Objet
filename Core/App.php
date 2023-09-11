@@ -59,14 +59,18 @@ class App implements DatabaseConfigInterface
     // *** 2) méthode registerRoutes (enregistrement des routes)
     private function registerRoutes(): void
     {
-        // on crée la route pour la page d'accueil
-        $this->router->get('/', [AnnonceController::class, 'index']);
 
         // Déclaration des patterns pour tester les valeurs des arguments
         $this->router->pattern('id', '[0-9]\d*');
         $this->router->pattern('slug', '(\d*-)?[a-z]+(-[a-z-\d]+)*');
 
         // on crée les routes avec le controlleur
+        // on crée la route pour la page d'accueil
+        $this->router->get('/', [AnnonceController::class, 'index']);
+        // route pour le detail de mes annonces.
+        $this->router->get('/annonce/{id}', [AnnonceController::class, 'detail']);
+
+
         // route pour la vue connexion
         $this->router->get('/connexion', [AuthController::class, 'login']);
         // route pour envoyer le formulaire de connexion

@@ -45,43 +45,53 @@ class InscriptionController extends Controller
         $utilisateur = new Utilisateur();
 
         // on vérifie que les champs sont remplis
-        if (empty($post_data['email']) || empty($post_data['motdepasse']) || empty($post_data['isannonceur']) || empty($post_data['rue']) || empty($post_data['codepostal']) || empty($post_data['ville']) || empty($post_data['pays'])) {
+        if (
+            empty($post_data['email']) ||
+            empty($post_data['motdepasse']) ||
+            // empty($post_data['isannonceur']) ||
+            empty($post_data['rue']) ||
+            empty($post_data['codepostal']) ||
+            empty($post_data['ville']) ||
+            empty($post_data['pays'])
+        ) {
             $form_result->addError(new FormError('Tous les champs sont obligatoires'));
-        } else {
-            // sinon on confronte les valeurs saisies avec les données en BDD
-            // on va redéfinir des variables 
-            $email = $post_data['email'];
-            $motdepasse = self::hash($post_data['motdepasse']);
-            $isannonceur = ($post_data['isannonceur'] == 'oui');
-            $rue = $post_data['rue'];
-            $codepostal = $post_data['codepostal'];
-            $ville = $post_data['ville'];
-            $pays = $post_data['pays'];
-
-
-            // appel du repository pour vérifier que l'utilisateur existe
-            // NB: on a crée méthode checkAuth dans le repository ainsi que le RepoManager
-            $utilisateur = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($email, $motdepasse, $isannonceur, $rue, $codepostal, $ville, $pays);
-
-            // si le retour est négatif, on affiche le message d'erreur
-            if (is_null($utilisateur)) {
-                $form_result->addError(new FormError('Un ou plusieurs champs sont incorrects'));
-            }
-        }
-
-        // si il y a des erreurs, on renvoie vers la page d'inscription
-        if ($form_result->hasError()) {
             Session::set(Session::FORM_RESULT, $form_result);
             self::redirect('/inscription');
+        } else {
+            var_dump($post_data);
+            // Construction du tableau de données pour Adresse
+            $data_adresse = [
+                'rue' => $post_data['rue'],
+                'code_postal' => $post_data['codepostal'],
+                'ville' => $post_data['ville'],
+                'pays' => $post_data['pays']
+            ];
+            var_dump($data_adresse);
+            $adresse_id = AppRepoManager::getRm()->getAdresseRepo()->insertAdresse($data_adresse);
+            var_dump($adresse_id);
+
+            // on reconstruit un tableau de données pour utilisateur
+            $data_utilisateur = [
+                'email' => $post_data['email'],
+                'mot_de_passe' => self::hash($post_data['motdepasse']),
+                'is_annonceur' => intval($post_data['isannonceur']),
+                'adresse_id' => intval($adresse_id)
+            ];
+            var_dump($data_utilisateur);
+            $user = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($data_utilisateur);
+
+            if (!$user) {
+                $form_result->addError(new FormError('L\'utilisateur existe déjà'));
+                Session::set(Session::FORM_RESULT, $form_result);
+                self::redirect('/inscription');
+            } else {
+                $utilisateur->mot_de_passe = '';
+                Session::set(Session::USER, $utilisateur);
+
+                // puis on redirige
+                self::redirect('/');
+            }
         }
-
-        // si tout s'est bien passé, on enregistre l'utilisateur en session et on redirige vers la page de connexion.
-        // on efface le mot de passe
-        $utilisateur->motdepasse = '';
-        Session::set(Session::USER, $utilisateur);
-
-        // puis on redirige
-        self::redirect('/connexion');
     }
 
 

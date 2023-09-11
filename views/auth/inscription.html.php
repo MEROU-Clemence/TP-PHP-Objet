@@ -23,16 +23,16 @@
         </label>
         <div class="d-flex flex-row">
             <label for="oui">Oui
-                <input type="radio" name="isannonceur" id="oui" value="oui">
+                <input type="radio" name="isannonceur" id="oui" value="1" checked>
             </label> &nbsp;
             <label for="non">Non
-                <input type="radio" name="isannonceur" id="non" value="non">
+                <input type="radio" name="isannonceur" id="non" value="0">
             </label>
         </div><br>
         <label>
             <strong>Votre adresse:</strong>
         </label>
-        <div>     
+        <div>
             <label for="rue">Numéro et nom de rue:
                 <input type="text" name="rue" id="rue">
             </label><br>

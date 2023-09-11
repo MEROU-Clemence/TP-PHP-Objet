@@ -4,18 +4,18 @@ namespace App\Model\Repository;
 
 use Core\Repository\Repository;
 
-class AdresseRepository extends Repository
+class TypeLogementRepository extends Repository
 {
     public function getTableName(): string
     {
-        return 'adresse';
+        return 'type_logement';
     }
 
-    public function insertAdresse(array $data)
+    public function insertTypeLogement(array $data)
     {
         $q =  sprintf(
-            'INSERT INTO `%s` (`rue`, `code_postal`, `ville`, `pays`)
-           VALUES (:rue, :code_postal, :ville, :pays)',
+            'INSERT INTO `%s` (`label`)
+           VALUES (:label)',
             $this->getTableName()
         );
 
