@@ -42,16 +42,20 @@ if (empty($annonces)) : ?>
         <?php
         foreach ($annonces as $annonce) : ?>
             <div class="card m-2" style="width: 18rem">
-                <h3 class="m-2"><?= $annonce->titre ?></h3>
+                <h3 class="card-title m-2"><?= $annonce->titre ?></h3>
                 <?php if (!empty($annonce->images)) : ?>
                     <?php foreach ($annonce->images as $image) : ?>
                         <img src="/img/<?= $image->image_path ?>" class="card-img-top img-fluid p-3" alt="<?= $annonce->titre ?>">
                     <?php endforeach; ?>
                 <?php endif; ?>
-                <p class="m-2"><?= $annonce->adresse->ville ?>, <?= $annonce->adresse->pays ?></p>
-                <p class="m-2"><?= $annonce->prix ?>€ /nuit</p>
-                <h5 class="m-2"><?= $annonce->typelogement->label ?></h5>
-                <a href="/annonce/<?= $annonce->id ?>" class="btn btn-primary"> Voir détail</a>
+                <div class="m-2 card-info">
+                    <p><?= $annonce->adresse->ville ?>, <?= $annonce->adresse->pays ?></p>
+                    <p><?= $annonce->prix ?>€ /nuit</p>
+                    <h5 class="card-typelogmt"><?= $annonce->typelogement->label ?></h5>
+                    <div class="card-btn">
+                        <a href="/annonce/<?= $annonce->id ?>"> Voir détail</a>
+                    </div>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
