@@ -11,7 +11,7 @@ use Core\Session\Session;
     <?php if (AuthController::isAuth() || InscriptionController::isAuth()) : ?>
         <p class="profil-utilisateur">Profil utilisateur
             <?= $email = Session::get(Session::USER)->email;
-            // TODO: faire apparaitre de mail lors de l'inscription également var_dump($email); 
+            // TODO: faire apparaitre le mail lors de l'inscription également var_dump($email); 
             ?>
 
         </p>

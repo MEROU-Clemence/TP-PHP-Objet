@@ -82,6 +82,11 @@ class App implements DatabaseConfigInterface
         $this->router->get('/inscription', [InscriptionController::class, 'createInscription']);
         // route pour envoyer le formulaire d'inscription
         $this->router->post('/inscriptionPost', [InscriptionController::class, 'inscriptionPost']);
+
+        // route pour aller vers l'ajout d'une annonce
+        $this->router->get('/addannonce', [AuthController::class, 'addAnnonce']);
+        // route pour envoyer le formulaire de ma nouvelle annonce
+        $this->router->post('/annoncePost', [AuthController::class, 'annoncePost']);
     }
 
     // *** 3) méthode startRouter (démarrage du Router)

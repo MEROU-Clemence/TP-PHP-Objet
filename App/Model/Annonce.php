@@ -19,8 +19,10 @@ class Annonce extends Model
     public string $description;
     public int $nb_couchages;
 
+    // propriétés associatives
     public ?Adresse $adresse = null;
     public ?Utilisateur $utilisateur = null;
     public ?TypeLogement $typelogement = null;
     public array $images;
+    public array $equipements;
 }

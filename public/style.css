@@ -135,6 +135,10 @@ body {
     color: beige;
 }
 
+.button-retour {
+    margin: 30px;
+}
+
 h1 {
     color: #583c41;
     margin: 30px;
@@ -149,7 +153,12 @@ h1 {
     color: #583c41;
 }
 
-.card-typelogmt, .card-contact {
+.card-typelogmt {
+    font-size: 24px;
+}
+
+.card-typelogmt,
+.card-contact {
     color: #FF5A5F;
 }
 
@@ -157,8 +166,8 @@ h1 {
     background-color: #FF5A5F;
     border: 2px solid #f5f5dc;
     border-radius: 5px;
-    color: #f5f5dc; 
-    display: inline-block; 
+    color: #f5f5dc;
+    display: inline-block;
     justify-content: center;
     padding: 5px;
 }
@@ -175,5 +184,19 @@ h1 {
 }
 
 .card-btn a:hover {
-     color: #FF5A5F;
+    color: #FF5A5F;
+}
+
+/* Formulaire pour ajouter mon annonce */
+
+.form-annonce {
+    background-color: #FF5A5F;
+}
+
+.first-div {
+    padding-top: 30px;
+}
+
+.form-annonce div {
+    margin: 20px;
 }

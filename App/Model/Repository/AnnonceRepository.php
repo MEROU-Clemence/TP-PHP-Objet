@@ -127,6 +127,7 @@ class AnnonceRepository extends Repository
              ON `%1$s`.type_logement_id = `%4$s`.id
              INNER JOIN `%5$s`
              ON `%1$s`.id = `%5$s`.annonce_id
+             
              WHERE `%1$s`.id = :id',
             // donner la valeur de %1$s qui correspond à la table toys
             $this->getTableName(),
@@ -135,7 +136,7 @@ class AnnonceRepository extends Repository
             AppRepoManager::getRm()->getAdresseRepo()->getTableName(),
             AppRepoManager::getRm()->getUtilisateurRepo()->getTableName(),
             AppRepoManager::getRm()->getTypeLogementRepo()->getTableName(),
-            AppRepoManager::getRm()->getPhotoRepo()->getTableName()
+            AppRepoManager::getRm()->getPhotoRepo()->getTableName(),
         );
 
         // on prépare la requête
@@ -171,8 +172,6 @@ class AnnonceRepository extends Repository
             'label' => $row_data['type_logement_label']
         ];
 
-        $photo_data = AppRepoManager::getRm()->getPhotoRepo()->getAllImagesByAnnonce($annonce->id);
-
         // on crée un objet Adresse qu'on hydrate
         $adresse = new Adresse($adresse_data);
 
@@ -182,13 +181,17 @@ class AnnonceRepository extends Repository
         // on crée un objet Adresse qu'on hydrate
         $typelogement = new TypeLogement($type_logement_data);
 
+        // Photos hydratation
+        $photo_data = AppRepoManager::getRm()->getPhotoRepo()->getAllImagesByAnnonce($annonce->id);
 
+        $equipement_data = AppRepoManager::getRm()->getAnnonceEquipementRepo()->getAllEquipementsByAnnonce($annonce->id);
 
-        // on ajoute les objets adresse, utilisateur et typelogement à annonce 
+        // on ajoute les objets adresse, utilisateur, typelogement, images, equipement à annonce 
         $annonce->adresse = $adresse;
         $annonce->utilisateur = $utilisateur;
         $annonce->typelogement = $typelogement;
         $annonce->images = $photo_data;
+        $annonce->equipements = $equipement_data;
 
         return $annonce;
     }

@@ -6,8 +6,10 @@ use Core\App;
 use App\Model\Repository\PhotoRepository;
 use App\Model\Repository\AdresseRepository;
 use App\Model\Repository\AnnonceRepository;
+use App\Model\Repository\EquipementRepository;
 use App\Model\Repository\UtilisateurRepository;
 use App\Model\Repository\TypeLogementRepository;
+use App\Model\Repository\AnnonceEquipementRepository;
 
 
 class AppRepoManager
@@ -21,6 +23,8 @@ class AppRepoManager
     private AnnonceRepository $annonceRepository;
     private TypeLogementRepository $typelogementRepository;
     private PhotoRepository $photoRepository;
+    private AnnonceEquipementRepository $annonce_equipementRepository;
+    private EquipementRepository $equipementRepository;
 
     // on crée le getter 
     public function getUtilisateurRepo(): UtilisateurRepository
@@ -52,6 +56,18 @@ class AppRepoManager
         return $this->photoRepository;
     }
 
+    // on crée le getter 
+    public function getAnnonceEquipementRepo(): AnnonceEquipementRepository
+    {
+        return $this->annonce_equipementRepository;
+    }
+
+    // on crée le getter 
+    public function getEquipementRepo(): EquipementRepository
+    {
+        return $this->equipementRepository;
+    }
+
 
     // on déclare le constructeur
     protected function __construct()
@@ -62,5 +78,7 @@ class AppRepoManager
         $this->annonceRepository = new AnnonceRepository($config);
         $this->typelogementRepository = new TypeLogementRepository($config);
         $this->photoRepository = new PhotoRepository($config);
+        $this->annonce_equipementRepository = new AnnonceEquipementRepository($config);
+        $this->equipementRepository = new EquipementRepository($config);
     }
 }

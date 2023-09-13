@@ -12,6 +12,6 @@ class AnnonceEquipement extends Model
     public int $equipement_id;
 
 
-    public ?Annonce $annonce = null;
-    public ?Equipement $equipement = null;
+    public ?Annonce $annonce;
+    public ?Equipement $equipement;
 }
