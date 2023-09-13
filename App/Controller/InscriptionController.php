@@ -58,7 +58,6 @@ class InscriptionController extends Controller
             Session::set(Session::FORM_RESULT, $form_result);
             self::redirect('/inscription');
         } else {
-            var_dump($post_data);
             // Construction du tableau de données pour Adresse
             $data_adresse = [
                 'rue' => $post_data['rue'],
@@ -66,9 +65,7 @@ class InscriptionController extends Controller
                 'ville' => $post_data['ville'],
                 'pays' => $post_data['pays']
             ];
-            var_dump($data_adresse);
             $adresse_id = AppRepoManager::getRm()->getAdresseRepo()->insertAdresse($data_adresse);
-            var_dump($adresse_id);
 
             // on reconstruit un tableau de données pour utilisateur
             $data_utilisateur = [
@@ -77,7 +74,6 @@ class InscriptionController extends Controller
                 'is_annonceur' => intval($post_data['isannonceur']),
                 'adresse_id' => intval($adresse_id)
             ];
-            var_dump($data_utilisateur);
             $user = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($data_utilisateur);
 
             if (!$user) {

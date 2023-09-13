@@ -2,6 +2,7 @@
 
 namespace App\Model\Repository;
 
+use App\Model\TypeLogement;
 use Core\Repository\Repository;
 
 class TypeLogementRepository extends Repository
@@ -28,5 +29,10 @@ class TypeLogementRepository extends Repository
 
         // on récupère l'id qui vient d'être inseré.
         return $this->pdo->lastInsertId();
+    }
+
+    public function findAll(): array
+    {
+        return $this->readAll(TypeLogement::class);
     }
 }

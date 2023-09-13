@@ -85,4 +85,26 @@ class UtilisateurRepository extends Repository
             return true;
         }
     }
+
+    public function findAuth(string $email): ?Utilisateur
+    {
+        // on crée la requête
+        $query = sprintf(
+            'SELECT * FROM %s WHERE email = :email',
+            $this->getTableName()
+        );
+
+        // on prépare la requête
+        $stmt = $this->pdo->prepare($query);
+        // on vérifie que la requête est bien préparée
+        if (!$stmt) return null;
+        // on exécute la requête
+        $stmt->execute([
+            'email' => $email
+        ]);
+        // on récupère les données
+        $user_data = $stmt->fetch();
+        // on instancie un objet Users
+        return empty($user_data) ? null : new Utilisateur($user_data);
+    }
 }

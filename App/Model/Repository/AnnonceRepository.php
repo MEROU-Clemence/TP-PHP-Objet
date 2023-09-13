@@ -2,7 +2,6 @@
 
 namespace App\Model\Repository;
 
-use App\Model\Photo;
 use App\Model\Adresse;
 use App\Model\Annonce;
 use App\Model\Utilisateur;
@@ -194,5 +193,24 @@ class AnnonceRepository extends Repository
         $annonce->equipements = $equipement_data;
 
         return $annonce;
+    }
+
+    public function insertAnnonce(array $data)
+    {
+        $q =  sprintf(
+            'INSERT INTO `%s` (`titre`, `adresse_id`, `utilisateur_id`, `prix`, `type_logement_id`, `taille`, `nb_pieces`, `description`, `nb_couchages`)
+           VALUES (:titre, :adresse_id, :utilisateur_id, :prix, :type_logement_id, :taille, :nb_pieces, :description, :nb_couchages)',
+            $this->getTableName()
+        );
+
+        // on prépare la requête
+        $stmt = $this->pdo->prepare($q);
+        // on vérifie que la requête est bien préparée
+        if (!$stmt) return false;
+        // on exécute la requête
+        $stmt->execute($data);
+
+        // on récupère l'id qui vient d'être inseré.
+        return $this->pdo->lastInsertId();
     }
 }

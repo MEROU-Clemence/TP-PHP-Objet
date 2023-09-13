@@ -31,4 +31,23 @@ class PhotoRepository extends Repository
         // on retourne le tableau
         return $arr_result;
     }
+
+    public function insertPhotos(array $data)
+    {
+        $q =  sprintf(
+            'INSERT INTO `%s` (`image_path`, `annonce_id`)
+           VALUES (:image_path, :annonce_id)',
+            $this->getTableName()
+        );
+
+        // on prépare la requête
+        $stmt = $this->pdo->prepare($q);
+        // on vérifie que la requête est bien préparée
+        if (!$stmt) return false;
+        // on exécute la requête
+        $stmt->execute($data);
+
+        // on récupère l'id qui vient d'être inseré.
+        return $this->pdo->lastInsertId();
+    }
 }

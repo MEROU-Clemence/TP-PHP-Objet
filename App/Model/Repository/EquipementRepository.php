@@ -12,4 +12,16 @@ class EquipementRepository extends Repository
     {
         return 'equipement';
     }
+
+    public function findAll(): array
+    {
+        return $this->readAll(Equipement::class);
+    }
+
+    public function insertEquipement(array $data, int $annonce_id)
+    {
+        // TODO: foreach sur $data (dedans mettre une requete d'insertion avec passage de boucle sur mes equipements )
+        var_dump($data);
+        die();
+    }
 }

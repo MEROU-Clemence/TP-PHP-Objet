@@ -53,37 +53,8 @@
 
         <div>
             <label for="prix">
-                <strong>Prix:</strong>
+                <strong>Prix:</strong> <input type="text" name="prix" id="prix"> € /nuit
             </label>
-            <select name="prix" id="prix">
-                <option value="50">10 € /nuit</option>
-                <option value="50">20 € /nuit</option>
-                <option value="50">30 € /nuit</option>
-                <option value="50">40 € /nuit</option>
-                <option value="50">50 € /nuit</option>
-                <option value="50">60 € /nuit</option>
-                <option value="50">70 € /nuit</option>
-                <option value="50">80 € /nuit</option>
-                <option value="50">90 € /nuit</option>
-                <option value="50">100 € /nuit</option>
-                <option value="100">125 € /nuit</option>
-                <option value="150">150 € /nuit</option>
-                <option value="150">175 € /nuit</option>
-                <option value="150">200 € /nuit</option>
-                <option value="150">250 € /nuit</option>
-                <option value="150">250 € /nuit</option>
-                <option value="150">275 € /nuit</option>
-                <option value="150">300 € /nuit</option>
-                <option value="150">350 € /nuit</option>
-                <option value="150">400 € /nuit</option>
-                <option value="150">450 € /nuit</option>
-                <option value="150">500 € /nuit</option>
-                <option value="150">600 € /nuit</option>
-                <option value="150">700 € /nuit</option>
-                <option value="150">800 € /nuit</option>
-                <option value="150">900 € /nuit</option>
-                <option value="150">1000 € /nuit</option>
-            </select>
         </div>
 
         <div>
@@ -92,33 +63,73 @@
             </label>
         </div>
 
-        <!-- TODO: ici ajouter le type de logement dans un menu select. 1 seule option possible -->
+        <div>
+            <label for="typeslogement">
+                <strong>Type de logement:</strong>
+            </label>
+            <ul>
+                <?php foreach ($typeslogement as $type) : ?>
+                    <li>
+                        <input type="radio" name="type_logement" id="<?= $type->label ?>" value="<?= $type->id ?>">
+                        <label for="<?= $type->label ?>"><?= $type->label ?></label>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
 
         <div>
             <label for="pieces">
                 <strong>Nombre de pièces:</strong>
             </label>
             <select name="pieces" id="pieces">
-                <option value="50">1</option>
-                <option value="50">2</option>
-                <option value="50">3</option>
-                <option value="50">4</option>
-                <option value="50">5</option>
-                <option value="50">6</option>
-                <option value="50">7</option>
-                <option value="50">8</option>
-                <option value="50">9</option>
-                <option value="50">10</option>
-                <option value="50">11</option>
-                <option value="50">12</option>
-                <option value="50">13</option>
-                <option value="50">14</option>
-                <option value="50">15</option>
-                <option value="50">16</option>
-                <option value="50">17</option>
-                <option value="50">18</option>
-                <option value="50">19</option>
-                <option value="50">20 et +</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20 et +</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="couchages">
+                <strong>Nombre de couchages:</strong>
+            </label>
+            <select name="couchages" id="couchages">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20 et +</option>
             </select>
         </div>
 
@@ -128,7 +139,19 @@
             </label><br>
         </div>
 
-        <!-- TODO: faire mon menu déroulant avec les options possibles dans mon logement. On peut en sélectionner plusieurs -->
+        <div>
+            <label for="equipement">
+                <strong>Equipement(s):</strong>
+            </label>
+            <ul>
+                <?php foreach ($equipements as $equipement) : ?>
+                    <li>
+                        <input type="checkbox" name="equipement[]" id="<?= $equipement->id ?>" value="<?= $equipement->id ?>">
+                        <label for="<?= $equipement->id ?>"><?= $equipement->id ?></label>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
 
         <div class="go">
             <input type="submit" value="Envoyer">
