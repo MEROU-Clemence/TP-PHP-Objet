@@ -213,8 +213,9 @@ class AuthController extends Controller
                 $form_result->addError(new FormError('Erreur lors de l\'upload de l\'image'));
             }
 
-            // construction pour Equipement
+            // appel du Repo pour insérer les equipements dans annonces equipement dans la BDD
             AppRepoManager::getRm()->getEquipementRepo()->insertEquipement($post_data['equipement'], $annonce_id);
+            var_dump($post_data);die();
 
 
             // on redirige

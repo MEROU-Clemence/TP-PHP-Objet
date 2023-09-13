@@ -213,4 +213,9 @@ class AnnonceRepository extends Repository
         // on récupère l'id qui vient d'être inseré.
         return $this->pdo->lastInsertId();
     }
+
+    public function deleteAnnonce(int $id): bool
+    {
+        return $this->delete($id);
+    }
 }

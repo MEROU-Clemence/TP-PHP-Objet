@@ -147,7 +147,7 @@
                 <?php foreach ($equipements as $equipement) : ?>
                     <li>
                         <input type="checkbox" name="equipement[]" id="<?= $equipement->id ?>" value="<?= $equipement->id ?>">
-                        <label for="<?= $equipement->id ?>"><?= $equipement->id ?></label>
+                        <label for="<?= $equipement->id ?>"><?= $equipement->label ?></label>
                     </li>
                 <?php endforeach; ?>
             </ul>

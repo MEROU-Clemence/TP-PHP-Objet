@@ -87,6 +87,8 @@ class App implements DatabaseConfigInterface
         $this->router->get('/addannonce', [AuthController::class, 'addAnnonce']);
         // route pour envoyer le formulaire de ma nouvelle annonce
         $this->router->post('/annoncePost', [AuthController::class, 'annoncePost']);
+        // route pour la suppression d'une annonce
+        $this->router->get('/supprimer/{id}/{redirect}', [AnnonceController::class, 'deleteAnnonce']);
     }
 
     // *** 3) méthode startRouter (démarrage du Router)

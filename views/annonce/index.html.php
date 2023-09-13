@@ -38,7 +38,7 @@ use Core\Session\Session;
 if (empty($annonces)) : ?>
     <p>Aucunes annonces en ce moment</p>
 <?php else : ?>
-    <div class="d-flex flex-row flex-wrap justify-content-center col-6">
+    <div class="d-flex flex-row flex-wrap justify-content-center col-12">
         <?php
         foreach ($annonces as $annonce) : ?>
             <div class="card m-2" style="width: 18rem">
@@ -52,9 +52,18 @@ if (empty($annonces)) : ?>
                     <p><?= $annonce->adresse->ville ?>, <?= $annonce->adresse->pays ?></p>
                     <p><?= $annonce->prix ?>€ /nuit</p>
                     <h5 class="card-typelogmt"><?= $annonce->typelogement->label ?></h5>
-                    <div class="card-btn">
-                        <a href="/annonce/<?= $annonce->id ?>"> Voir détail</a>
-                    </div>
+                        <div class="card-btn">
+                            <a href="/annonce/<?= $annonce->id ?>"> Voir détail</a>
+                        </div>
+                        <?php if (AuthController::isAuth() && $annonce->utilisateur->email === Session::get(Session::USER)->email) : ?>
+                            <?php //TODO: rendre fonctionnels ces boutons ?>
+                            <div class="card-btn-modif">
+                                <a href="/addannonce/<?= $annonce->id ?>"> Modifier</a>
+                            </div>  
+                            <div class="card-btn-suppr">
+                                <a href="/supprimer/<?= $annonce->id ?>/index"> Supprimer</a>
+                            </div>
+                        <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
