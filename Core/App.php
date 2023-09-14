@@ -95,6 +95,8 @@ class App implements DatabaseConfigInterface
 
         // route pour aller vers une réservation
         $this->router->get('/reserver/{id}', [AnnonceController::class, 'reserverAnnonce']);
+        // route pour poster sa réservation
+        $this->router->post('/reserverPost', [AnnonceController::class, 'reserverPost']);
     }
 
     // *** 3) méthode startRouter (démarrage du Router)

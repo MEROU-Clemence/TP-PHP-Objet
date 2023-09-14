@@ -31,6 +31,9 @@ use Core\Session\Session;
 <div class="button-add-annonce">
     <a href="/addannonce">Ajouter une annonce</a>
 </div>
+<div class="button-my-resa">
+    <a href="/myreservations">Voir mes réservations</a>
+</div>
 <h1><?= $title_tag ?></h1>
 <?php
 // si on a pas d'annonces

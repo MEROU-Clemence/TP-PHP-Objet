@@ -113,7 +113,7 @@ body {
 }
 
 .button-retour,
-.button-add-annonce {
+.button-add-annonce, .button-my-resa {
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -131,6 +131,22 @@ body {
 
 .button-add-annonce:hover,
 .button-add-annonce a:hover {
+    background-color: #583c41;
+    color: beige;
+}
+
+.button-my-resa {
+    background-color: #3bffbe;
+    border: 2px solid #583c41;
+    border-radius: 5px;
+    color: #583c41;
+    display: inline-block;
+    margin: 0 5px 5px 5px;
+    padding: 7px;
+}
+
+.button-my-resa:hover,
+.button-my-resa a:hover {
     background-color: #583c41;
     color: beige;
 }

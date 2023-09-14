@@ -52,7 +52,6 @@ class AnnonceController extends Controller
             'equipements' => AppRepoManager::getRm()->getEquipementRepo()->findAll()
 
         ];
-        var_dump($view_data);
         $view = new View('annonce/updateannonce');
         $view->render($view_data);
     }
@@ -63,7 +62,6 @@ class AnnonceController extends Controller
         if (!AuthController::isAuth()) self::redirect('/');
 
         $post_data = $request->getParsedBody();
-        var_dump($post_data);
 
         $form_result = new FormResult();
         // on déclare nos variables de $post_data
@@ -178,5 +176,9 @@ class AnnonceController extends Controller
         $view = new View('annonce/reserver');
 
         $view->render($view_data);
+    }
+
+    public function reserverPost(){
+        //TODO: faire methode pour le poste de ma réservation qui va se rediriger vers une nouvelle page html en lien sur le bouton voir mes réservations
     }
 }
