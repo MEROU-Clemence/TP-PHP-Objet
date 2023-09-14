@@ -166,4 +166,17 @@ class AnnonceController extends Controller
         Session::remove(Session::FORM_RESULT);
         self::redirect('/');
     }
+
+    public function reserverAnnonce($id)
+    {
+        // on reconstruit notre tableau de données
+        $view_data = [
+            'title_tag' => 'Réserver un logement',
+            'h1_tag' => 'Réserver un logement',
+            'annonce' => AppRepoManager::getRm()->getAnnonceRepo()->findMyAnnonceById($id)
+        ];
+        $view = new View('annonce/reserver');
+
+        $view->render($view_data);
+    }
 }

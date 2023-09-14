@@ -3,9 +3,7 @@
 namespace App\Model\Repository;
 
 use App\Model\Photo;
-use App\Model\Annonce;
 use Core\Repository\Repository;
-use Core\Repository\AppRepoManager;
 
 class PhotoRepository extends Repository
 {

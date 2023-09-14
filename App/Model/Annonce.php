@@ -25,8 +25,4 @@ class Annonce extends Model
     public ?TypeLogement $typelogement = null;
     public array $images;
     public array $equipements;
-
-    // TODO: faire mon booléan pour activer désactiver l'annonce
-    // // Par défaut, l'annonce n'est pas en pause
-    // public bool $paused = false;
 }
