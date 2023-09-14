@@ -214,8 +214,7 @@ class AuthController extends Controller
             }
 
             // appel du Repo pour insérer les equipements dans annonces equipement dans la BDD
-            AppRepoManager::getRm()->getEquipementRepo()->insertEquipement($post_data['equipement'], $annonce_id);
-            var_dump($post_data);die();
+            AppRepoManager::getRm()->getAnnonceEquipementRepo()->insertEquipement($post_data['equipement'], $annonce_id);
 
 
             // on redirige

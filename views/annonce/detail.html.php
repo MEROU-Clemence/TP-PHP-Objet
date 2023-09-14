@@ -23,7 +23,6 @@
                     <p><?= $equipement->label ?></p>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php var_dump($annonce);die(); // TODO: ici mon equipement est empty... ?>
         </div>
     </div>
 </div>

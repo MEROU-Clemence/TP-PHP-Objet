@@ -3,7 +3,9 @@
 namespace App\Model\Repository;
 
 use App\Model\Photo;
+use App\Model\Annonce;
 use Core\Repository\Repository;
+use Core\Repository\AppRepoManager;
 
 class PhotoRepository extends Repository
 {
@@ -49,5 +51,29 @@ class PhotoRepository extends Repository
 
         // on récupère l'id qui vient d'être inseré.
         return $this->pdo->lastInsertId();
+    }
+
+    public function findMyPhotosByAnnonce(int $id): ?array
+    {
+        // Créez une requête pour récupérer toutes les photos liées à une annonce spécifique
+        $q = sprintf(
+            'SELECT * FROM `%s` 
+            WHERE `annonce_id` = :annonce_id',
+            $this->getTableName()
+        );
+
+        // Préparez la requête
+        $stmt = $this->pdo->prepare($q);
+
+        // Exécutez la requête en liant le paramètre :annonce_id
+        $stmt->execute(['annonce_id' => $id]);
+
+        // Récupérez toutes les photos liées à l'annonce
+        $images = [];
+        while ($row = $stmt->fetch()) {
+            $images[] = new Photo($row);
+        }
+
+        return $images;
     }
 }

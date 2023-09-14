@@ -135,7 +135,7 @@ class AnnonceRepository extends Repository
             AppRepoManager::getRm()->getAdresseRepo()->getTableName(),
             AppRepoManager::getRm()->getUtilisateurRepo()->getTableName(),
             AppRepoManager::getRm()->getTypeLogementRepo()->getTableName(),
-            AppRepoManager::getRm()->getPhotoRepo()->getTableName(),
+            AppRepoManager::getRm()->getPhotoRepo()->getTableName()
         );
 
         // on prépare la requête
@@ -183,6 +183,7 @@ class AnnonceRepository extends Repository
         // Photos hydratation
         $photo_data = AppRepoManager::getRm()->getPhotoRepo()->getAllImagesByAnnonce($annonce->id);
 
+        // Equipement par annonce hydratation
         $equipement_data = AppRepoManager::getRm()->getAnnonceEquipementRepo()->getAllEquipementsByAnnonce($annonce->id);
 
         // on ajoute les objets adresse, utilisateur, typelogement, images, equipement à annonce 
@@ -191,7 +192,6 @@ class AnnonceRepository extends Repository
         $annonce->typelogement = $typelogement;
         $annonce->images = $photo_data;
         $annonce->equipements = $equipement_data;
-
         return $annonce;
     }
 
@@ -214,8 +214,45 @@ class AnnonceRepository extends Repository
         return $this->pdo->lastInsertId();
     }
 
-    public function deleteAnnonce(int $id): bool
+    public function update(array $data)
     {
-        return $this->delete($id);
+        // on stocke d'id avant de unset
+        $id = $data['id'];
+        // unset: enlève un élément d'un tableau
+        unset($data['id']);
+
+        // dans un foreach il faut reconstruire une string avec clé=valeur séparée par des ,
+        // on déclare un tableau vide
+        $keysArray = [];
+        // dans le foreach, on rempli le tableau déclaré précédemment
+        foreach ($data as $key => $value) {
+            $keysArray[] = $key . '=:' . $key;
+        }
+        $keysString = implode(', ', $keysArray);
+        var_dump($keysString);
+
+        // création de la requête
+        $q = sprintf(
+            'UPDATE `%1$s` SET %2$s WHERE id = %3$s',
+            $this->getTableName(),
+            $keysString,
+            $id
+        );
+
+        // on prépare la requête
+        $stmt = $this->pdo->prepare($q);
+        // on vérifie que la requête est bien préparée
+        if (!$stmt) return false;
+        // on exécute la requête
+        $stmt->execute($data);
+        return true;
     }
+
+
+    // // TODO:
+    // public function desactivateAnnonce(int $id): bool
+    // {
+    //     // TODO: créerla désactivation de l'annonce
+    // }
+
 }

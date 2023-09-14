@@ -31,7 +31,6 @@ use Core\Session\Session;
 <div class="button-add-annonce">
     <a href="/addannonce">Ajouter une annonce</a>
 </div>
-<!-- TODO: appel pour le rendu de mon annonce -->
 <h1><?= $title_tag ?></h1>
 <?php
 // si on a pas d'annonces
@@ -52,18 +51,19 @@ if (empty($annonces)) : ?>
                     <p><?= $annonce->adresse->ville ?>, <?= $annonce->adresse->pays ?></p>
                     <p><?= $annonce->prix ?>€ /nuit</p>
                     <h5 class="card-typelogmt"><?= $annonce->typelogement->label ?></h5>
-                        <div class="card-btn">
-                            <a href="/annonce/<?= $annonce->id ?>"> Voir détail</a>
+                    <div class="card-btn">
+                        <a href="/annonce/<?= $annonce->id ?>"> Voir détail</a>
+                    </div>
+                    <?php if (AuthController::isAuth() && $annonce->utilisateur->email === Session::get(Session::USER)->email) : ?>
+                        <div class="card-btn-modif">
+                            <a href="/updateannonce/<?= $annonce->id ?>"> Modifier</a>
                         </div>
-                        <?php if (AuthController::isAuth() && $annonce->utilisateur->email === Session::get(Session::USER)->email) : ?>
-                            <?php //TODO: rendre fonctionnels ces boutons ?>
-                            <div class="card-btn-modif">
-                                <a href="/addannonce/<?= $annonce->id ?>"> Modifier</a>
-                            </div>  
-                            <div class="card-btn-suppr">
-                                <a href="/supprimer/<?= $annonce->id ?>/index"> Supprimer</a>
-                            </div>
-                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if (AuthController::isAuth() && $annonce->utilisateur->email !== Session::get(Session::USER)->email) : ?>
+                        <div class="card-btn-reserver">
+                            <a href="/reserver/<?= $annonce->id ?>"> Réserver</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>

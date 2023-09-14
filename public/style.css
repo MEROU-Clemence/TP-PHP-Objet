@@ -187,32 +187,6 @@ h1 {
     color: #FF5A5F;
 }
 
-.card-btn-suppr {
-    background-color: #f90e16;
-    border: 2px solid #583c41;
-    border-radius: 5px;
-    color: #583c41;
-    display: inline-block;
-    justify-content: center;
-    margin: 5px;
-    padding: 5px;
-}
-
-.card-btn-suppr a {
-    color: #f5f5dc;
-}
-
-
-.card-btn-suppr:hover {
-    background-color: #f5f5dc;
-    border: 2px solid #f90e16;
-    color: #f5f5dc;
-}
-
-.card-btn-suppr a:hover {
-    color: #f90e16;
-}
-
 .card-btn-modif {
     background-color: #f5f5dc;
     border: 2px solid #FF5A5F;
@@ -236,6 +210,31 @@ h1 {
 
 .card-btn-modif a:hover {
     color: #583c41;
+}
+
+.card-btn-reserver {
+    background-color: #3bffbe;
+    border: 2px solid #583c41;
+    border-radius: 5px;
+    color: #583c41;
+    display: inline-block;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.card-btn-reserver a {
+    color: #583c41;
+}
+
+.card-btn-reserver:hover {
+    background-color: #f5f5dc;
+    border: 2px solid #1f976f;
+    color: #1f976f;
+}
+
+.card-btn-reserver a:hover {
+    color: #1f976f;
 }
 
 /* Formulaire pour ajouter mon annonce */

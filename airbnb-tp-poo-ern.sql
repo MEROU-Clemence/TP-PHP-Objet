@@ -290,7 +290,7 @@ CREATE TABLE
         `annonce_id` int(10) NOT NULL,
         PRIMARY KEY (`id`),
         KEY `annonce_id` (`annonce_id`),
-        FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`) ON DELETE CASCADE
+        FOREIGN KEY (`annonce_id`) REFERENCES `annonce` (`id`)
     );
 
 -- Listage des données de la table airbnb-tp.photo

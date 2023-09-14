@@ -45,4 +45,35 @@ class AnnonceEquipementRepository extends Repository
         // on retourne le tableau
         return $arr_result;
     }
+
+    public function insertEquipement(array $data, int $annonce_id)
+    {
+        foreach ($data as $equipement_id) {
+            // Pour chaque équipement sélectionné, insérez une nouvelle ligne dans la table de liaison
+            $q = sprintf(
+                'INSERT INTO `%s` (`annonce_id`, `equipement_id`) VALUES (:annonce_id, :equipement_id)',
+                $this->getTableName()
+            );
+            $stmt = $this->pdo->prepare($q);
+            if ($stmt) {
+                $stmt->execute(['annonce_id' => $annonce_id, 'equipement_id' => $equipement_id]);
+            } else {
+                // Gérez l'erreur de préparation de requête ici
+                echo 'Vos équipements ne se sont pas inserrés';
+            }
+        }
+    }
+
+    public function deleteByAnnonceId(int $annonce_id): void
+    {
+        // Vous devrez ajuster le nom de la table et le nom de la colonne d'annonce_id
+        $q = sprintf(
+            'DELETE FROM `%s` 
+            WHERE `annonce_id` = :annonce_id',
+            $this->getTableName()
+        );
+
+        $stmt = $this->pdo->prepare($q);
+        $stmt->execute(['annonce_id' => $annonce_id]);
+    }
 }
