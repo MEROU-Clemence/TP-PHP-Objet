@@ -74,13 +74,14 @@ class InscriptionController extends Controller
                 'is_annonceur' => intval($post_data['isannonceur']),
                 'adresse_id' => intval($adresse_id)
             ];
-            $user = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($data_utilisateur);
+            $utilisateur = AppRepoManager::getRm()->getUtilisateurRepo()->checkAuthInscription($data_utilisateur);
 
-            if (!$user) {
+            if (!$utilisateur) {
                 $form_result->addError(new FormError('L\'utilisateur existe déjà'));
                 Session::set(Session::FORM_RESULT, $form_result);
                 self::redirect('/inscription');
             } else {
+                $utilisateur = new Utilisateur($data_utilisateur);
                 $utilisateur->mot_de_passe = '';
                 Session::set(Session::USER, $utilisateur);
 

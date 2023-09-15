@@ -27,7 +27,6 @@ class AnnonceRepository extends Repository
     }
 
     public function findMyCompleteAnnonces(): array
-    // je veux obtenir un tableau avec toutes les infos de annonce et tout utilisateur et tout typelogement
     {
         // on déclare un tableau vide
         $arr_result = [];
@@ -247,12 +246,4 @@ class AnnonceRepository extends Repository
         $stmt->execute($data);
         return true;
     }
-
-
-    // // TODO:
-    // public function desactivateAnnonce(int $id): bool
-    // {
-    //     // TODO: créerla désactivation de l'annonce
-    // }
-
 }

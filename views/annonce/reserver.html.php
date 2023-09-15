@@ -1,4 +1,22 @@
+<?php
+
+use Core\Session\Session;
+
+?>
+
 <h1><?= $title_tag ?></h1>
+
+<?php
+// on affiche les erreurs si il y en a 
+if ($form_result && $form_result->hasError()) {
+?>
+    <div>
+        <?php echo $form_result->getErrors()[0]->getMessage(); ?>
+    </div>
+<?php
+}
+?>
+
 
 <div class="d-flex">
     <div class="d-flex flex-row flex-wrap justify-content-center col-6">
@@ -30,88 +48,36 @@
 
     <div class="d-flex flex-row flex-wrap justify-content-center col-6">
         <div class="card m-2" style="width: 42rem">
+
             <h3 class="card-title m-2">Réserver ce logement</h3>
-            <div class="dates-resa">
-                <p>Date début:</p>
-                <div class="dates-select m-2">
-                    <select name="day">
-                        <?php
-                        for ($day = 1; $day <= 31; $day++) {
-                            echo "<option value=\"$day\">$day</option>";
-                        }
-                        ?>
-                    </select>
-                    <select name="month">
-                        <?php
-                        $months = [
-                            '01' => 'Janvier', '02' => 'Février', '03' => 'Mars',
-                            '04' => 'Avril', '05' => 'Mai', '06' => 'Juin',
-                            '07' => 'Juillet', '08' => 'Août', '09' => 'Septembre',
-                            '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre',
-                        ];
 
-                        foreach ($months as $monthNumber => $monthName) {
-                            echo "<option value=\"$monthNumber\">$monthName</option>";
-                        }
-                        ?>
-                    </select>
+            <form action="/reserverPost" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="annonce_id" value="<?= $annonce->id ?>">
+                <input type="hidden" name="utilisateur_id" value="<?= Session::get(Session::USER)->id ?>">
 
-                    <select name="year">
-                        <?php
-                        $currentYear = date("Y");
-                        $endYear = $currentYear + 10;
-
-                        for ($year = $currentYear; $year <= $endYear; $year++) {
-                            echo "<option value=\"$year\">$year</option>";
-                        }
-                        ?>
-                    </select>
+                <div class="dates-resa m-2">
+                    <p><strong>Date début: &nbsp;</strong> </p>
+                    <input type="date" id="date_debut" name="date_debut" value="2023-15-09" min="2023-15-09" max="2033-15-09" />
                 </div>
-            </div>
-            <div class="dates-resa">
-                <p>Date fin:</p>
-                <div class="dates-select m-2">
-                    <select name="day">
-                        <?php
-                        for ($day = 1; $day <= 31; $day++) {
-                            echo "<option value=\"$day\">$day</option>";
-                        }
-                        ?>
-                    </select>
-                    <select name="month">
-                        <?php
-                        $months = [
-                            '01' => 'Janvier', '02' => 'Février', '03' => 'Mars',
-                            '04' => 'Avril', '05' => 'Mai', '06' => 'Juin',
-                            '07' => 'Juillet', '08' => 'Août', '09' => 'Septembre',
-                            '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre',
-                        ];
-
-                        foreach ($months as $monthNumber => $monthName) {
-                            echo "<option value=\"$monthNumber\">$monthName</option>";
-                        }
-                        ?>
-                    </select>
-
-                    <select name="year">
-                        <?php
-                        $currentYear = date("Y");
-                        $endYear = $currentYear + 10;
-
-                        for ($year = $currentYear; $year <= $endYear; $year++) {
-                            echo "<option value=\"$year\">$year</option>";
-                        }
-                        ?>
-                    </select>
+                <div class="dates-resa m-2">
+                    <p><strong>Date fin: &nbsp;</strong> </p>
+                    <input type="date" id="date_fin" name="date_fin" value="2023-15-09" min="2023-15-09" max="2033-15-09" />
                 </div>
-            </div>
 
 
-            <div class="go m-2">
-                <input type="submit" value="Confirmer réservation">
-            </div>
+                <div class="go m-2">
+                    <input type="submit" value="Confirmer réservation">
+                </div>
+
+            </form>
+
+
         </div>
+
+
+
     </div>
+</div>
 </div>
 
 <div class="button-retour btn-manip">

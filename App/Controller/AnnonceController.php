@@ -171,14 +171,70 @@ class AnnonceController extends Controller
         $view_data = [
             'title_tag' => 'Réserver un logement',
             'h1_tag' => 'Réserver un logement',
-            'annonce' => AppRepoManager::getRm()->getAnnonceRepo()->findMyAnnonceById($id)
+            'annonce' => AppRepoManager::getRm()->getAnnonceRepo()->findMyAnnonceById($id),
+            'form_result' => Session::get(Session::FORM_RESULT)
         ];
         $view = new View('annonce/reserver');
 
         $view->render($view_data);
     }
 
-    public function reserverPost(){
-        //TODO: faire methode pour le poste de ma réservation qui va se rediriger vers une nouvelle page html en lien sur le bouton voir mes réservations
+    public function reserverPost(ServerRequest $request)
+    {
+        // on récupère les données du formulaire dans une variable
+        $post_data = $request->getParsedBody();
+
+        // on va créer une instance de FormResult
+        $form_result = new FormResult();
+
+        // on déclare nos variables de $post_data
+        $annonce_id = intval($post_data['annonce_id']);
+        $utilisateur_id = intval($post_data['utilisateur_id']);
+        $date_debut = strtotime($post_data['date_debut']);
+        $date_fin = strtotime($post_data['date_fin']);
+
+        // on reconstruit un tableau de données
+        $data = [
+            'annonce_id' => $annonce_id,
+            'utilisateur_id' => $utilisateur_id,
+            'date_debut' => $date_debut,
+            'date_fin' => $date_fin,
+        ];
+
+        // on vérifie que les champs sont remplis
+        if (
+            empty($post_data['date_debut']) ||
+            empty($post_data['date_fin'])
+        ) {
+            $form_result->addError(new FormError('Tous les champs sont obligatoires'));
+            Session::set(Session::FORM_RESULT, $form_result);
+            self::redirect('/reserver');
+        } else {
+            // Construction du tableau de données pour Reservation
+            $reservation = AppRepoManager::getRm()->getReservationRepo()->insertReservation($data);
+
+            if (!$reservation) {
+                $form_result->addError(new FormError('La réservation n\'est pas possible.'));
+                Session::set(Session::FORM_RESULT, $form_result);
+                self::redirect('/reserver');
+            } else {
+                Session::remove(Session::FORM_RESULT);
+                // puis on redirige
+                self::redirect('annonce/mesresa');
+            }
+        }
+    }
+
+    public function mesResa($id)
+    {
+        // on reconstruit notre tableau de données
+        $view_data = [
+            'title_tag' => 'Mes réservations',
+            'h1_tag' => 'Mes réservations',
+            'reservation' => AppRepoManager::getRm()->getReservationRepo()->findAllMyResaByUtilisateurId($id)
+        ];
+        $view = new View('annonce/mesresa');
+
+        $view->render($view_data);
     }
 }

@@ -10,10 +10,8 @@ use Core\Session\Session;
 <div class="profil-manip">
     <?php if (AuthController::isAuth() || InscriptionController::isAuth()) : ?>
         <p class="profil-utilisateur">Profil utilisateur
-            <?= $email = Session::get(Session::USER)->email;
-            // TODO: faire apparaitre le mail lors de l'inscription également var_dump($email); 
-            ?>
-
+            <?= $email = Session::get(Session::USER)->email; ?>
+            <input type="hidden" name="id" value="<?= $id = Session::get(Session::USER)->id; ?>">
         </p>
         <div class="btn-manip">
             <a href="/logout">Déconnexion</a>
@@ -32,7 +30,7 @@ use Core\Session\Session;
     <a href="/addannonce">Ajouter une annonce</a>
 </div>
 <div class="button-my-resa">
-    <a href="/myreservations">Voir mes réservations</a>
+    <a href="/mesresa/<?php echo $id ?>">Voir mes réservations</a>
 </div>
 <h1><?= $title_tag ?></h1>
 <?php

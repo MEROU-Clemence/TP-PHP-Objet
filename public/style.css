@@ -113,7 +113,8 @@ body {
 }
 
 .button-retour,
-.button-add-annonce, .button-my-resa {
+.button-add-annonce,
+.button-my-resa {
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -270,11 +271,5 @@ h1 {
 /* Réservations */
 .dates-resa {
     display: flex;
-    justify-content: center;
-}
-
-.dates-select {
-    border: 2px solid #583c41;
-    display: inline-block;
     justify-content: center;
 }

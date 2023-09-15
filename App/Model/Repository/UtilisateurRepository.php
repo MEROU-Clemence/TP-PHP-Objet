@@ -13,6 +13,11 @@ class UtilisateurRepository extends Repository
         return 'utilisateur';
     }
 
+    public function findById(int $id)
+    {
+        return $this->readById(Utilisateur::class, $id);
+    }
+
     public function checkAuth(string $email, string $motdepasse): ?Utilisateur
     {
         // on crée la requête
@@ -35,8 +40,6 @@ class UtilisateurRepository extends Repository
         // on instancie un objet Users
         return empty($user_data) ? null : new Utilisateur($user_data);
     }
-
-
 
     public function checkAuthInscription(array $data): bool
     {

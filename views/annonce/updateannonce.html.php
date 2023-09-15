@@ -11,7 +11,7 @@
     ?>
 
     <form class="form-annonce" action="/updateAnnonce" method="post" enctype="multipart/form-data">
-        <!-- input hidden pour l'id du jouet -->
+        <!-- input hidden pour l'id -->
         <input type="hidden" name="id" value="<?= $annonce->id ?>">
         <input type="hidden" name="adresse_id" value="<?= $annonce->adresse_id ?>">
         <input type="hidden" name="utilisateur_id" value="<?= $annonce->utilisateur_id ?>">
