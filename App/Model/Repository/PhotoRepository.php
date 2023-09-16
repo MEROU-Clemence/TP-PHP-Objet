@@ -74,4 +74,5 @@ class PhotoRepository extends Repository
 
         return $images;
     }
+
 }

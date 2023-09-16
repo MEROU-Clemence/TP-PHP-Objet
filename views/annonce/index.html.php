@@ -29,9 +29,11 @@ use Core\Session\Session;
 <div class="button-add-annonce">
     <a href="/addannonce">Ajouter une annonce</a>
 </div>
+<?php if (AuthController::isAuth() || InscriptionController::isAuth()) : ?>
 <div class="button-my-resa">
-    <a href="/mesresa/<?php echo $id ?>">Voir mes réservations</a>
+    <a href="/mesresa/<?= $id; ?>">Voir mes réservations</a>
 </div>
+<?php endif; ?>
 <h1><?= $title_tag ?></h1>
 <?php
 // si on a pas d'annonces

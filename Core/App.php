@@ -88,6 +88,9 @@ class App implements DatabaseConfigInterface
         // route pour envoyer le formulaire de ma nouvelle annonce
         $this->router->post('/annoncePost', [AuthController::class, 'annoncePost']);
 
+        // Route pour afficher les détails de l'annonce
+        $this->router->get('/annonce/{id}', [AnnonceController::class, 'detail']);
+
         // route pour la modification d'une annonce
         $this->router->get('/updateannonce/{id}', [AnnonceController::class, 'editAnnonce']);
         // on poste la modification

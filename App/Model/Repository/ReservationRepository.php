@@ -26,10 +26,8 @@ class ReservationRepository extends Repository
         // on vérifie que la requête est bien préparée
         if (!$stmt) return false;
         // on exécute la requête
-        $stmt->execute($data);
-
-        $result = $stmt->fetch();
-
+        $result = $stmt->execute($data);
+        
         return empty($result) ? false : true;
     }
 
@@ -68,10 +66,11 @@ class ReservationRepository extends Repository
 
             $reservation->utilisateur = AppRepoManager::getRm()->getUtilisateurRepo()->findById($row_data['utilisateur_id']);
 
+            $reservation->annonce->images = AppRepoManager::getRm()->getPhotoRepo()->findMyPhotosByAnnonce($row_data['annonce_id']);
+
             $arr_result[] = $reservation;
         }
 
-        var_dump($arr_result);
         return $arr_result;
     }
 }

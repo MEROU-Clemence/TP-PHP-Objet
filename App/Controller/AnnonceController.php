@@ -171,8 +171,8 @@ class AnnonceController extends Controller
         $view_data = [
             'title_tag' => 'Réserver un logement',
             'h1_tag' => 'Réserver un logement',
-            'annonce' => AppRepoManager::getRm()->getAnnonceRepo()->findMyAnnonceById($id),
-            'form_result' => Session::get(Session::FORM_RESULT)
+            'form_result' => Session::get(Session::FORM_RESULT),
+            'annonce' => AppRepoManager::getRm()->getAnnonceRepo()->findMyAnnonceById($id)
         ];
         $view = new View('annonce/reserver');
 
@@ -201,6 +201,14 @@ class AnnonceController extends Controller
             'date_fin' => $date_fin,
         ];
 
+        // Vérifiez que la date de début est inférieure à la date de fin
+        if ($date_debut > $date_fin) {
+            $form_result->addError(new FormError('La date de début ne peut pas être supérieure à la date de fin'));
+            Session::set(Session::FORM_RESULT, $form_result);
+            self::redirect('annonce/reserver/' . $annonce_id);
+            return;
+        }
+
         // on vérifie que les champs sont remplis
         if (
             empty($post_data['date_debut']) ||
@@ -208,7 +216,7 @@ class AnnonceController extends Controller
         ) {
             $form_result->addError(new FormError('Tous les champs sont obligatoires'));
             Session::set(Session::FORM_RESULT, $form_result);
-            self::redirect('/reserver');
+            self::redirect('/annonce/reserver/' . $annonce_id);
         } else {
             // Construction du tableau de données pour Reservation
             $reservation = AppRepoManager::getRm()->getReservationRepo()->insertReservation($data);
@@ -216,11 +224,11 @@ class AnnonceController extends Controller
             if (!$reservation) {
                 $form_result->addError(new FormError('La réservation n\'est pas possible.'));
                 Session::set(Session::FORM_RESULT, $form_result);
-                self::redirect('/reserver');
+                self::redirect('/annonce/reserver/' . $annonce_id);
             } else {
                 Session::remove(Session::FORM_RESULT);
                 // puis on redirige
-                self::redirect('annonce/mesresa');
+                self::redirect('/');
             }
         }
     }
@@ -238,3 +246,4 @@ class AnnonceController extends Controller
         $view->render($view_data);
     }
 }
+

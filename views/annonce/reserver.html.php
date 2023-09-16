@@ -8,14 +8,13 @@ use Core\Session\Session;
 
 <?php
 // on affiche les erreurs si il y en a 
-if ($form_result && $form_result->hasError()) {
-?>
+if (isset($form_result) && $form_result->hasError()) : ?>
     <div>
-        <?php echo $form_result->getErrors()[0]->getMessage(); ?>
+        <?php foreach ($form_result->getErrors() as $error) : ?>
+            <p><?= $error->getMessage() ?></p>
+        <?php endforeach; ?>
     </div>
-<?php
-}
-?>
+<?php endif; ?>
 
 
 <div class="d-flex">
@@ -70,15 +69,10 @@ if ($form_result && $form_result->hasError()) {
                 </div>
 
             </form>
-
-
         </div>
-
-
-
     </div>
 </div>
-</div>
+
 
 <div class="button-retour btn-manip">
     <a href="/">Retour accueil</a>
