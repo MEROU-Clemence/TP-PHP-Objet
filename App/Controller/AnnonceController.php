@@ -179,6 +179,7 @@ class AnnonceController extends Controller
         $view->render($view_data);
     }
 
+    // TODO: faire marcher les erreurs des réservations
     public function reserverPost(ServerRequest $request)
     {
         // on récupère les données du formulaire dans une variable
